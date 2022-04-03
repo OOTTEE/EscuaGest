@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: INFO
+
+
+springdoc:
+  swagger-ui:
+    url: /openapi.yml
