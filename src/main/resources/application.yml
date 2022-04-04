@@ -2,6 +2,14 @@ logging:
   level:
     root: INFO
 
+spring:
+  data:
+    mongodb:
+      escuagest:
+        uri: mongodb://escuagest:chancleta@localhost:27017/escuagest
+        database-name: escuagest
+
+
 
 springdoc:
   swagger-ui:

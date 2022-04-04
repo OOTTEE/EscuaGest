@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:5.0.6
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: escuagest
+      MONGO_INITDB_ROOT_PASSWORD: chancleta
+      MONGO_INITDB_DATABASE: escuagest
+    networks:
+      - escuages
+
+  mongo-express:
+    image: mongo-express:0.54
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: escuagest
+      ME_CONFIG_MONGODB_ADMINPASSWORD: chancleta
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/escuagest
+
+    networks:
+      - escuages
+
+networks:
+  escuages:
+    driver: bridge
+    name: escuagest
