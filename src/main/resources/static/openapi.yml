@@ -36,19 +36,88 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserResponse'
         404:
           description: User not found
           content: { }
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: 'The id that needs to be fetched'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        404:
+          description: User not found
+          content: { }
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create a new user
+      operationId: postNewUser
+      requestBody:
+        description: User object thats needs to be added on the system.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        201:
+          description: User created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+
+
 components:
+  responses:
+    InternalServerError:
+      description: "Generic Internal Error"
+      content:
+        application/json:
+          schema:
+            $ref: '#components/schemas/InternalServerError'
   schemas:
-    User:
+    UserResponse:
       type: object
       properties:
         id:
-          type: integer
-          format: int64
+          type: string
         username:
           type: string
         fullname:
           type: string
+    CreateUserRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        fullname:
+          type: string
+      required:
+        - username
+        - fullname
+    InternalServerError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
