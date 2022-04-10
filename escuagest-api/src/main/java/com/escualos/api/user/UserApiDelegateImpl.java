@@ -1,10 +1,10 @@
-package com.escualos.rest;
+package com.escualos.api.user;
 
 import com.escualos.api.UserApiDelegate;
+import com.escualos.domain.user.User;
+import com.escualos.domain.user.UserRepository;
 import com.escualos.model.CreateUserRequest;
 import com.escualos.model.UserResponse;
-import com.escualos.model.user.User;
-import com.escualos.model.user.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;

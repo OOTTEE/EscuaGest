@@ -1,4 +1,4 @@
-package com.escualos.model.user;
+package com.escualos.domain.user;
 
 import lombok.Builder;
 import lombok.Data;

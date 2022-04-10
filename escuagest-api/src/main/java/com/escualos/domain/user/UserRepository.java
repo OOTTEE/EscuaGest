@@ -1,4 +1,4 @@
-package com.escualos.model.user;
+package com.escualos.domain.user;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
