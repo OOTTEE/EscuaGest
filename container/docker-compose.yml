@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  keycloak:
+#    image: jboss/keycloak:16.1.1
+    image: quay.io/keycloak/keycloak:17.0.1
+    command: start-dev #Only for dev env
+    ports:
+      - 8085:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    networks:
+      - escuagest
+
   mongo:
     image: mongo:5.0.6
     ports:
@@ -10,7 +22,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: chancleta
       MONGO_INITDB_DATABASE: escuagest
     networks:
-      - escuages
+      - escuagest
 
   mongo-express:
     image: mongo-express:0.54
@@ -22,9 +34,9 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/escuagest
 
     networks:
-      - escuages
+      - escuagest
 
 networks:
-  escuages:
+  escuagest:
     driver: bridge
     name: escuagest

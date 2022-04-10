@@ -1,0 +1,4 @@
+POST http://localhost:8085/realms/Escuagest/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=escuagest&username=ote&password=123qweASD&grant_type=password
