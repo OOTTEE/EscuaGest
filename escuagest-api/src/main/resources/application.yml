@@ -12,6 +12,12 @@ spring:
       username: ${ESCUAGEST_MONGODB_USERNAME}
       password: ${ESCUAGEST_MONGODB_PASSWORD}
 
+keycloak:
+  auth-server-url: ${ESCUAGEST_KEYCLOAK_AUTH_SERVER_URL}
+  realm: ${ESCUAGEST_KEYCLOAK_REALM}
+  resource: ${ESCUAGEST_KEYCLOAK_RESOURCE}
+  public-client: ${ESCUAGEST_KEYCLOAK_PUBLIC_CLIENT}
+
 springdoc:
   swagger-ui:
     url: /openapi.yml

@@ -17,7 +17,7 @@ tags:
       description: Find out more about our store
       url: http://swagger.io
 paths:
-  /user/{username}:
+  /user/usename/{username}:
     get:
       tags:
         - user
@@ -85,6 +85,11 @@ paths:
 
 
 components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   responses:
     InternalServerError:
       description: "Generic Internal Error"
@@ -121,3 +126,5 @@ components:
         message:
           type: string
 
+security:
+  - bearerAuth: []
