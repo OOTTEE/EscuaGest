@@ -8,6 +8,8 @@ public interface UserSrv {
 
     public Mono<User> getUserById(String userId);
 
+    Mono<User> getUserByUsername(String username);
+
     public Mono<User> createUser(User user);
 
 }

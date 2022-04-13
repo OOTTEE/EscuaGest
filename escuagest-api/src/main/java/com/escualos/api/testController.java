@@ -26,7 +26,7 @@ public class testController {
     }
 
     @GetMapping("/test/noRole3")
-    @PreAuthorize("hasRole('NO_ROLE_2')")
+    @PreAuthorize("hasRole('NO_ROLE')")
     public Mono<ResponseEntity<String>> noRole3(Principal principal) {
         return Mono.just(ResponseEntity.ok("OK"));
     }

@@ -24,8 +24,15 @@ public class UserSrvImpl implements UserSrv {
     }
 
     @Override
+    public Mono<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public Mono<User> createUser(User user) {
 
         return userRepository.save(user);
     }
+
+
 }
