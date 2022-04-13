@@ -3,7 +3,7 @@ logging:
     root: INFO
     org:
       springframework:
-        security: DEBUG
+        security: TRACE
 
 spring:
   data:
@@ -21,3 +21,4 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8085/realms/Escuagest
+
