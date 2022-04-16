@@ -1,14 +1,20 @@
 package com.escualos.domain.swimmer;
 
-import com.escualos.domain.swimmer.mark.Mark;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Set;
+import java.time.LocalDate;
 
+@Builder
+@Data
+@Document
 public class Swimmer {
 
+    public String id;
     public String username;
     public String licence;
-    public int year;
+    public LocalDate birthday;
     //TODO
 
 }

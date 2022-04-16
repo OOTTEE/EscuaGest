@@ -1,38 +1,34 @@
 package com.escualos.domain.user;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.stream.Collectors;
+
 
 @Component
 public class UserSrvImpl implements UserSrv {
 
-    private UserRepository userRepository;
-
-    public UserSrvImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
-    public Flux<User> getAllUsers() {
-        return userRepository.findAll();
+    public Mono<User> getUserInfo(Mono<JwtAuthenticationToken> principal) {
+        return principal.map(jwtAuthenticationToken -> {
+            final Jwt credentials = (Jwt) jwtAuthenticationToken.getCredentials();
+            return User.builder()
+                    .id(credentials.getId())
+                    .username((String) credentials.getClaims().get("preferred_username"))
+                    .fullname((String) credentials.getClaims().get("name"))
+                    .firstName((String) credentials.getClaims().get("given_name"))
+                    .lastsNames((String) credentials.getClaims().get("family_name"))
+                    .email((String) credentials.getClaims().get("email"))
+                    .emailVerified((boolean) credentials.getClaims().get("email_verified"))
+                    .groups(jwtAuthenticationToken.getAuthorities().stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .collect(Collectors.toSet()))
+                    .build();
+        });
     }
-
-    @Override
-    public Mono<User> getUserById(String userId) {
-        return userRepository.findById(userId);
-    }
-
-    @Override
-    public Mono<User> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public Mono<User> createUser(User user) {
-
-        return userRepository.save(user);
-    }
-
 
 }

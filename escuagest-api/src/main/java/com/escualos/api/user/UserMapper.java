@@ -1,23 +1,23 @@
 package com.escualos.api.user;
 
 import com.escualos.domain.user.User;
-import com.escualos.model.CreateUserRequest;
-import com.escualos.model.UserResponse;
+import com.escualos.model.UserDTO;
+
+import java.util.Set;
 
 public class UserMapper {
 
-    public static UserResponse toUserResponse(User user){
-        return new UserResponse()
+    public static UserDTO toUserDTO(User user){
+        final Set<String> groups = user.getGroups();
+        return new UserDTO()
+                .id(user.getId())
                 .username(user.getUsername())
                 .fullname(user.getFullname())
-                .id(user.getId());
-    }
-
-    public static User fromCreateUserRequest(CreateUserRequest createUserRequest) {
-        return User.builder()
-                .fullname(createUserRequest.getFullname())
-                .username(createUserRequest.getUsername())
-                .build();
+                .email(user.getEmail())
+                .emailVerified(user.isEmailVerified())
+                .firstName(user.getFirstName())
+                .lastsNames(user.getLastsNames())
+                .groups(user.getGroups());
     }
 
 }

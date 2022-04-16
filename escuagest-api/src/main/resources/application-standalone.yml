@@ -15,10 +15,8 @@ spring:
       database: escuagest
       username: escuagest
       password: chancleta
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: https://auth.ote-cloud.duckdns.org/realms/Escuagest
-
