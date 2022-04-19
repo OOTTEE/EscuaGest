@@ -1,4 +1,4 @@
-package com.escualos;
+package com.escualos.security;
 
 import com.escualos.security.ReactiveKeycloakRealmRoleConverter;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +24,10 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeExchange()
+                .pathMatchers("/webjars/swagger-ui/**").permitAll()
+                .pathMatchers("/v3/**").permitAll()
+                .pathMatchers("/favicon.ico").permitAll()
+                .pathMatchers("/openapi.yml").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(

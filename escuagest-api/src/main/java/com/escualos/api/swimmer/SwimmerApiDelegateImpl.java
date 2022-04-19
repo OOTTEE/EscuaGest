@@ -1,8 +1,9 @@
 package com.escualos.api.swimmer;
 
 import com.escualos.api.SwimmerApiDelegate;
-import com.escualos.Roles;
+import com.escualos.security.Roles;
 import com.escualos.domain.swimmer.SwimmerSrv;
+import com.escualos.domain.user.UserSrv;
 import com.escualos.model.CreateSwimmerDTO;
 import com.escualos.model.SwimmerDTO;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,11 @@ import java.net.URI;
 public class SwimmerApiDelegateImpl implements SwimmerApiDelegate {
 
     private SwimmerSrv swimmerSrv;
+    private UserSrv userSrv;
 
-    public SwimmerApiDelegateImpl(SwimmerSrv swimmerSrv) {
+    public SwimmerApiDelegateImpl(SwimmerSrv swimmerSrv, UserSrv userSrv) {
         this.swimmerSrv = swimmerSrv;
+        this.userSrv = userSrv;
     }
 
     @PreAuthorize("hasAnyRole('" + Roles.SWIMMER_READ + "')")
@@ -40,6 +43,8 @@ public class SwimmerApiDelegateImpl implements SwimmerApiDelegate {
     @PreAuthorize("hasAnyRole('" + Roles.SWIMMER_WRITE + "','" + Roles.SWIMMER_ADMIN + "')")
     @Override
     public Mono<ResponseEntity<SwimmerDTO>> postNewUser(Mono<CreateSwimmerDTO> createSwimmerDTO, ServerWebExchange exchange) {
+        // TODO Solo un nadador puede crear su propio usuario
+        //      Un Administrador o un Manager puede crear otro usuario
         return createSwimmerDTO
             .map(SwimmerMapper::toSwimmer)
             .flatMap(swimmerSrv::createSwimmer)
@@ -50,27 +55,4 @@ public class SwimmerApiDelegateImpl implements SwimmerApiDelegate {
     }
 
 
-
-//    @Override
-//    @PreAuthorize("hasAnyRole('" + UserRoles.SWIMMER_READ + "')")
-//    public Mono<ResponseEntity<Flux<UserResponse>>> getAllUsers(ServerWebExchange exchange) {
-//        return Mono.just(ResponseEntity.ok(userSrv.getAllUsers().map(UserMapper::toUserResponse)));
-//    }
-//
-//    @Override
-//    @PreAuthorize("hasAnyRole('" + UserRoles.SWIMMER_READ + "')")
-//    public Mono<ResponseEntity<UserResponse>> getUserById(String id, ServerWebExchange exchange) {
-//        return userSrv.getUserById(id)
-//                .map(UserMapper::toUserResponse)
-//                .map(ResponseEntity::ok);
-//    }
-//
-//    @Override
-//    @PreAuthorize("hasAnyRole('" + UserRoles.SWIMMER_WRITE + "')")
-//    public Mono<ResponseEntity<UserResponse>> postNewUser(Mono<CreateUserRequest> createUserRequest, ServerWebExchange exchange) {
-//        return createUserRequest
-//            .map(UserMapper::fromCreateUserRequest)
-//            .flatMap(userSrv::createUser)
-//            .map(user -> ResponseEntity.created(URI.create("/user/%s".formatted(user.getId()))).build());
-//    }
 }

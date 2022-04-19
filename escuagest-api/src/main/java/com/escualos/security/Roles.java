@@ -1,4 +1,4 @@
-package com.escualos;
+package com.escualos.security;
 
 public class Roles {
     public static final String SWIMMER_READ = "SWIMMER_READ";
