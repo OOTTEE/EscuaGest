@@ -10,5 +10,6 @@
 
     <modules>
         <module>escuagest-api</module>
+        <module>escuagest-front</module>
     </modules>
 </project>

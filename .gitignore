@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/escuagest-front/node_modules/
+/escuagest-front/src/services/openapi/
