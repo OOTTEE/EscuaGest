@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      host: ${ESCUAGEST_MONGODB_HOST}
+      port: ${ESCUAGEST_MONGODB_PORT}
+      database: ${ESCUAGEST_MONGODB_DATABASE}
+      username: ${ESCUAGEST_MONGODB_USERNAME}
+      password: ${ESCUAGEST_MONGODB_PASSWORD}
+
+keycloak:
+  auth-server-url: ${ESCUAGEST_KEYCLOAK_AUTH_SERVER_URL}
+  realm: ${ESCUAGEST_KEYCLOAK_REALM}
+  resource: ${ESCUAGEST_KEYCLOAK_RESOURCE}
+  public-client: ${ESCUAGEST_KEYCLOAK_PUBLIC_CLIENT}
+
+springdoc:
+  swagger-ui:
+    url: /openapi.yml

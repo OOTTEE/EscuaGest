@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        security: TRACE
+
+spring:
+  data:
+    mongodb:
+      auto-index-creation: true
+      authentication-database: admin
+      host: localhost
+      port: 27017
+      database: escuagest
+      username: escuagest
+      password: chancleta
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://auth.ote-cloud.duckdns.org/realms/Escuagest

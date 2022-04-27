@@ -1,0 +1,21 @@
+POST http://localhost:8080/swimmer
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "username": "ote",
+  "licence": "1234421",
+  "birthday": "1989-10-01"
+}
+
+###
+GET http://localhost:8080/user/
+Authorization: Bearer {{token}}
+
+###
+GET http://localhost:8080/swimmer/ote
+Authorization: Bearer {{token}}
+
+### User infor
+GET https://auth.ote-cloud.duckdns.org/realms/Escuagest/protocol/openid-connect/userinfo
+Authorization: Bearer {{token}}

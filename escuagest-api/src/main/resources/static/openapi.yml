@@ -1,0 +1,168 @@
+openapi: 3.0.2
+info:
+  title: Escuagest API
+  description: "Escuagest API"
+  contact:
+    email: javier.ote.ote@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOT
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: user
+    description: Operations about user
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+paths:
+  /user:
+    get:
+      tags:
+        - user
+      summary: Get logged user info
+      operationId: getLoggedUserInfo
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /swimmer/{username}:
+    get:
+      tags:
+        - swimmer
+      summary: Get swimmer by id
+      operationId: getSwimmerByUsername
+      parameters:
+        - name: username
+          in: path
+          description: 'The username that needs to be fetched'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwimmerDTO'
+        404:
+          description: User not found
+          content: { }
+  /swimmer:
+    get:
+      tags:
+        - swimmer
+      summary: Get all swimmers
+      operationId: getAllSwimmers
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SwimmerDTO'
+        404:
+          description: User not found
+          content: { }
+    post:
+      tags:
+        - swimmer
+      summary: Create a new swimmer for a user.
+      operationId: postNewUser
+      requestBody:
+        description: Swimmer object thats needs to be added on the system.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSwimmerDTO'
+      responses:
+        201:
+          description: Swimmer created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SwimmerDTO'
+
+
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    InternalServerError:
+      description: "Generic Internal Error"
+      content:
+        application/json:
+          schema:
+            $ref: '#components/schemas/InternalServerError'
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        fullname:
+          type: string
+        firstName:
+          type: string
+        lastsNames:
+          type: string
+        groups:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        emailVerified:
+          type: boolean
+        email:
+          type: string
+    SwimmerDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        licence:
+          type: string
+        birthday:
+          type: string
+          format: date
+          description: birth day date
+          example: "2021-01-20"
+    CreateSwimmerDTO:
+      type: object
+      properties:
+        username:
+          type: string
+        licence:
+          type: string
+        birthday:
+          type: string
+          format: date
+          description: birth day date
+          example: "2021-01-20"
+      required:
+        - username
+    InternalServerError:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
+security:
+  - bearerAuth: []
