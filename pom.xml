@@ -9,6 +9,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>escuagest-api</module>
+        <module>api</module>
     </modules>
 </project>
