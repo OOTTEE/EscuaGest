@@ -1,6 +1,6 @@
 package com.escualos.api.swimmer;
 
-import com.escualos.api.SwimmerApiDelegate;
+import com.escualos.api.SwimmersApiDelegate;
 import com.escualos.security.Roles;
 import com.escualos.domain.swimmer.SwimmerSrv;
 import com.escualos.domain.user.UserSrv;
@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 
 @Component
-public class SwimmerApiDelegateImpl implements SwimmerApiDelegate {
+public class SwimmerApiDelegateImpl implements SwimmersApiDelegate {
 
     private SwimmerSrv swimmerSrv;
     private UserSrv userSrv;

@@ -1,6 +1,6 @@
 package com.escualos.api.user;
 
-import com.escualos.api.UserApiDelegate;
+import com.escualos.api.UsersApiDelegate;
 import com.escualos.domain.user.UserSrv;
 import com.escualos.model.UserDTO;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class UserApiDelegateImpl implements UserApiDelegate {
+public class UserApiDelegateImpl implements UsersApiDelegate {
     private static final Logger LOG = LoggerFactory.getLogger(UserApiDelegateImpl.class);
     private UserSrv userSrv;
 

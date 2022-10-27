@@ -7,4 +7,4 @@ client_id=escuagest-api&username=ote&password=123qweASD&grant_type=password&clie
 POST https://auth.ote-cloud.duckdns.org/realms/Escuagest/protocol/openid-connect/token
 Content-Type: application/x-www-form-urlencoded
 
-client_id=escuagest-auth-dev&username=ote&password=mfWcndvpvgUsh9dy&grant_type=password&client_secret=soJ9h7awyl28bkPT5vhOAs085McizudH
+client_id=escuagest-auth&username=ote&password=mfWcndvpvgUsh9dy&grant_type=password&client_secret=WLN3zXzdfjof0NTZHM0vEv9QCivYNUvk
