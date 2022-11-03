@@ -16,7 +16,17 @@ export const App = () => {
             path: "/dashboard",
             element: <ProtectedRoute user={true}>
                         <Dashboard/>
-                    </ProtectedRoute>
+                    </ProtectedRoute>,
+            children: [
+                {
+                    path: "/dashboard/competitions",
+                    element: <h2>Competitions</h2>
+                },
+                {
+                    path: "/dashboard/profiles",
+                    element: <h2>Profiles</h2>
+                },
+            ]
         },
     ])
 
