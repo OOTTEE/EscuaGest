@@ -1,19 +1,19 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import 'semantic-ui-css/semantic.min.css'
+import 'antd/dist/antd.css'
 
 
-import { Header } from './Header';
+import { MainHeader } from './MainHeader';
 
 export default {
   title: 'Navbar/Header',
-  component: Header,
+  component: MainHeader,
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof Header>;
+} as ComponentMeta<typeof MainHeader>;
 
-const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
+const Template: ComponentStory<typeof MainHeader> = (args) => <MainHeader {...args} />;
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {

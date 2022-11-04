@@ -1,8 +1,8 @@
 
-export const Main = () => {
+export const Login = () => {
     return (
         <div className='main'>
-            <h1>Main page</h1>
+            <h1>Login page</h1>
         </div>
     )
 }
