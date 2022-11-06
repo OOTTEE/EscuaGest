@@ -6,6 +6,7 @@ import {Login} from "./page/Login";
 import {Dashboard} from "./page/Dashboard";
 import {ProtectedRoute} from "./component/ProtectedRoute";
 import {MainLayout} from "./stories/layout/MainLayout";
+import {CompeticionesDashboard} from "./stories/competiciones-dashboard/CompeticionesDashboard";
 
 export const App = () => {
     let routes = useRoutes([
@@ -21,11 +22,15 @@ export const App = () => {
                 },
                 {
                     path: "/competitions",
-                    element: <h2>Competitions</h2>
+                    element: <CompeticionesDashboard/>
                 },
                 {
                     path: "/profile",
                     element: <h2>Profile</h2>
+                },
+                {
+                    path: "/admin/team",
+                    element: <h2>Team</h2>
                 },
             ]
         },
