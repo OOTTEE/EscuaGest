@@ -1,38 +1,46 @@
-import {Menu, MenuProps} from "antd";
+import './Sidebar.css'
+import React, {useState} from "react";
 import Sider from "antd/lib/layout/Sider";
-import React from "react";
-import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons";
+import {Image, Menu, MenuProps} from "antd";
+import {DeleteRowOutlined, SettingOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
+import logo from "../../assets/logo_escualos.svg";
+import classNames from "classnames";
 
+type MenuItem = Required<MenuProps>['items'][number];
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-    (icon, index) => {
-        const key = String(index + 1);
+const getItem = (
+    label: React.ReactNode,
+    key: React.Key,
+    icon?: React.ReactNode,
+    children?: MenuItem[],
+): MenuItem => {
+    return {
+        key,
+        icon,
+        children,
+        label,
+    } as MenuItem;
+}
 
-        return {
-            key: `sub${key}`,
-            icon: React.createElement(icon),
-            label: `subnav ${key}`,
-
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
-        };
-    },
-);
 
 export const Sidebar = () => {
+    const [collapsed, setCollapsed] = useState(true);
+    const items: MenuItem[] = [
+        getItem('Competiciones', '1', <DeleteRowOutlined style={{fontSize: collapsed ? '16px' : '14px'}} />),
+        getItem('Profile', '2', <UserOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
+        getItem('Administracion', '3', <SettingOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>, [
+            getItem('Team', 'sub3-1', <TeamOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
+        ])
+    ];
+
     return (
-        <Sider className="site-layout-background" width={200}>
-            <Menu
-                mode="inline"
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                style={{ height: '100%' }}
-                items={items2}
+        <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
+            <Image className="logo" src={logo} preview={false}/>
+            <Menu theme="dark"
+                  defaultSelectedKeys={['1']}
+                  mode="inline"
+                  items={items}
+                  className={classNames({'collapsed-menu': collapsed})}
             />
         </Sider>
     )

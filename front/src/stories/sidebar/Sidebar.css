@@ -1,0 +1,15 @@
+.logo {
+    height: 128px;
+    margin: 16px;
+}
+
+.collapsed-menu span {
+    padding-left: 6px;
+}
+
+.collapsed-menu .ant-menu-title-content {
+    visibility: hidden;
+}
+.collapsed-menu .ant-menu-submenu-arrow {
+    visibility: hidden;
+}

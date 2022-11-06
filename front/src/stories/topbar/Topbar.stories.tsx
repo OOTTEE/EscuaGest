@@ -3,17 +3,17 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import 'antd/dist/antd.css'
 
 
-import { MainHeader } from './MainHeader';
+import { TopBar } from './TopBar';
 
 export default {
   title: 'Navbar/Header',
-  component: MainHeader,
+  component: TopBar,
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof MainHeader>;
+} as ComponentMeta<typeof TopBar>;
 
-const Template: ComponentStory<typeof MainHeader> = (args) => <MainHeader {...args} />;
+const Template: ComponentStory<typeof TopBar> = (args) => <TopBar {...args} />;
 
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
