@@ -5,34 +5,38 @@ import {Image, Menu, MenuProps} from "antd";
 import {DeleteRowOutlined, SettingOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
 import logo from "../../assets/logo_escualos.svg";
 import classNames from "classnames";
+import {Link} from "react-router-dom";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
-const getItem = (
-    label: React.ReactNode,
-    key: React.Key,
-    icon?: React.ReactNode,
-    children?: MenuItem[],
-): MenuItem => {
-    return {
+const getItem = (label: React.ReactNode, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem => {
+    return {key, icon, children, label} as MenuItem;
+}
+
+const getItemLink = (title: string, link: string | null, key: React.Key, icon?: React.ReactNode, children?: MenuItem[]): MenuItem => {
+    return getItem(
+        link !== null ?<Link to={link}>title</Link>: title,
         key,
-        icon,
-        children,
-        label,
-    } as MenuItem;
+        link !== null ?<Link to={link}>{icon}</Link>: icon,
+        children
+    )
 }
 
 
 export const Sidebar = () => {
     const [collapsed, setCollapsed] = useState(true);
     const items: MenuItem[] = [
-        getItem('Competiciones', '1', <DeleteRowOutlined style={{fontSize: collapsed ? '16px' : '14px'}} />),
-        getItem('Profile', '2', <UserOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
-        getItem('Administracion', '3', <SettingOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>, [
-            getItem('Team', 'sub3-1', <TeamOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
+        getItemLink('Competiciones', '/competitions', '1', <DeleteRowOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
+        getItemLink('Perfil', '/profile', '2', <UserOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
+        getItemLink('Administracion', null,'3', <SettingOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>, [
+            getItemLink('Equipo', '/admin/team', 'sub3-1', <TeamOutlined style={{fontSize: collapsed ? '16px' : '14px'}}/>),
         ])
     ];
-
+    const expandMenuToOpenSubmenu:MenuProps['onOpenChange'] = keys => {
+        if(keys.length > 0 && collapsed){
+            setCollapsed(false)
+        }
+    }
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={value => setCollapsed(value)}>
             <Image className="logo" src={logo} preview={false}/>
@@ -41,6 +45,7 @@ export const Sidebar = () => {
                   mode="inline"
                   items={items}
                   className={classNames({'collapsed-menu': collapsed})}
+                  onOpenChange={expandMenuToOpenSubmenu}
             />
         </Sider>
     )
