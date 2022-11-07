@@ -1,12 +1,11 @@
 import React from 'react';
-import 'antd/dist/antd.css';
 import './App.css';
 import {useRoutes} from "react-router-dom";
 import {Login} from "./page/Login";
 import {Dashboard} from "./page/Dashboard";
 import {ProtectedRoute} from "./component/ProtectedRoute";
-import {MainLayout} from "./stories/layout/MainLayout";
-import {CompeticionesDashboard} from "./stories/competiciones-dashboard/CompeticionesDashboard";
+import {MainLayout} from "./component/layout/MainLayout";
+import {CompeticionesDashboard} from "./component/competiciones-dashboard/CompeticionesDashboard";
 
 export const App = () => {
     let routes = useRoutes([

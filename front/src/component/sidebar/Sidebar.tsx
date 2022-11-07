@@ -1,5 +1,5 @@
 import './Sidebar.css'
-import React, {useState} from "react";
+import {useState} from "react";
 import Sider from "antd/lib/layout/Sider";
 import {Image, Menu, MenuProps} from "antd";
 import {GoldOutlined, SettingOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
