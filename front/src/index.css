@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Electrolize';
+    src: local('Electrolize'), url("./assets/fonts/Electrolize-Regular.ttf") format('opentype');
+}
+
+* {
+    font-family: Electrolize;
+}
