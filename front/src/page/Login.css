@@ -1,0 +1,28 @@
+#root {
+    background-image: url("../assets/indoor-swimming-pool-735309_1280.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.form-container {
+    background: rgba(255, 255, 255, 0.39);
+    padding: 16px;
+    border-radius: 2px;
+}
+
+.login-form {
+    max-width: 100%;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.login-form-forgot {
+    float: right;
+    color: rgba(255, 255, 255, 0.71);
+    margin-top: 8px;
+}
+
