@@ -13,3 +13,11 @@
 .collapsed-menu .ant-menu-submenu-arrow {
     visibility: hidden;
 }
+
+.ant-menu-item-icon .menu-icon {
+    font-size: 14px !important;
+}
+
+.collapsed-menu-icon {
+    font-size: 16px !important;
+}
