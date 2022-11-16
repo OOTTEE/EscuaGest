@@ -1,4 +1,4 @@
-import {Button, Card, Divider} from "antd";
+import {Button, Card} from "antd";
 import {FormOutlined, SettingOutlined} from "@ant-design/icons";
 import jump from "../../assets/jump.png"
 

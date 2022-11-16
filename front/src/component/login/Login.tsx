@@ -2,7 +2,7 @@ import './Login.css'
 import {Button, Col, Form, Row} from "antd";
 import {Content} from "antd/lib/layout/layout";
 import {AuthService} from "../../infrastructure/authentication/AuthService";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 export const Login = () => {

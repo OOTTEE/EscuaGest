@@ -1,9 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="ecuagest-api" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.escualos.Application" />
     <option name="ACTIVE_PROFILES" value="standalone" />
-    <option name="ALTERNATIVE_JRE_PATH" />
+    <module name="back" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.escualos.Application" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

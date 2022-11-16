@@ -1,4 +1,6 @@
-import {httpResponse} from "./httpResponse";
+import {useContext} from "react";
+import {AuthContext} from "../authentication/AuthProvider";
+import {AuthService} from "../authentication/AuthService";
 
 const headers = {
     Accept: 'application/json',
@@ -6,46 +8,60 @@ const headers = {
     'Accept-Language': 'ES'
 };
 
-const get = async <T extends unknown>(url: string) => {
-    const response: httpResponse = await fetch(url, {
-        method: 'GET',
-        headers: {
-            ...headers,
-        },
-        cache: "no-cache"
-    });
-    return (await response.json()) as T;
+export const useHttpClient = () => {
+    const authContext = useContext(AuthContext)
+    return new HttpClient(authContext.authService);
 }
 
-const post = async <T extends unknown>(url: string, body: any) => {
-    const response = await fetch(url, {
-        method: 'POST',
-        headers,
-        body
-    });
-    return (await response.json()) as T;
-}
+class HttpClient {
+    authService: AuthService
 
-const put = async <T extends unknown>(url: string, body: any) => {
-    const response = await fetch(url, {
-        method: 'PUT',
-        headers,
-        body
-    });
-    return (await response.json()) as T;
-}
+    constructor(authService: AuthService) {
+        this.authService = authService
+    }
 
-const _delete = async <T extends unknown>(url: string) => {
-    const response = await fetch(url, {
-        method: 'DELETE',
-        headers
-    });
-    return response.ok;
-}
+    public get = async <T extends unknown>(url: string) => {
+        return await this.authService.userManager.getUser().then(user => {
+            console.log(user?.id_token)
+            console.log(user)
+            const tokenHeader = {
+                Authorization: "Bearer " + user?.id_token
+            }
+            return fetch(url, {
+                method: 'GET',
+                headers: {
+                    ...headers,
+                    ...tokenHeader
+                },
+                cache: "no-cache",
+            }).then(response => {return (response.json()) as T;})
+        })
+    }
 
-export default {
-    get,
-    post,
-    put,
-    delete: _delete
+    public post = async <T extends unknown>(url: string, body: any) => {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers,
+            body
+        });
+        return (await response.json()) as T;
+    }
+
+    public put = async <T extends unknown>(url: string, body: any) => {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers,
+            body
+        });
+        return (await response.json()) as T;
+    }
+
+    public _delete = async <T extends unknown>(url: string) => {
+        const response = await fetch(url, {
+            method: 'DELETE',
+            headers
+        });
+        return response.ok;
+    }
+
 }

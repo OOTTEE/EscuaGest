@@ -9,13 +9,18 @@ Authorization: Bearer {{token}}
 }
 
 ###
-GET http://localhost:8080/swimmer
+GET http://localhost:8080/swimmers
 Authorization: Bearer {{token}}
 
 ###
-GET http://localhost:8080/swimmer/ote
+GET http://localhost:8080/swimmers/ote
 Authorization: Bearer {{token}}
 
 ### User infor
 GET https://auth.ote-cloud.duckdns.org/realms/Escuagest/protocol/openid-connect/userinfo
 Authorization: Bearer {{token}}
+
+###
+GET http://localhost:8085/realms/Escuagest/protocol/openid-connect/userinfo
+Authorization: Bearer {{token}}
+###

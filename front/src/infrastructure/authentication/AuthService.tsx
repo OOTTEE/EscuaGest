@@ -1,6 +1,5 @@
 import {Log, User, UserManager} from "oidc-client";
 import React from "react";
-import {NavigateFunction, useNavigate} from "react-router-dom";
 
 export class AuthService {
     userManager: UserManager
@@ -13,6 +12,8 @@ export class AuthService {
             popup_redirect_uri: 'http://localhost:3000/login_success',
             redirect_uri: 'http://localhost:3000/',
             post_logout_redirect_uri: 'http://localhost:3000/login',
+            scope: 'email profile roles web-origins',
+            response_type: 'code'
         })
         this.userManager.getUser()
             .then(value => this.user = value)
@@ -45,6 +46,7 @@ export class AuthService {
 
 
 export const LoginSuccess = () => {
+    console.log(window.location.href)
     new AuthService().signinPopupCallback()
     return <></>
 }
