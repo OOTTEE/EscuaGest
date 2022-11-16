@@ -1,11 +1,12 @@
 import './Sidebar.css'
-import {useState} from "react";
+import React, {useState} from "react";
 import Sider from "antd/lib/layout/Sider";
 import {Image, Menu, MenuProps} from "antd";
 import {GoldOutlined, LogoutOutlined, SettingOutlined, TeamOutlined, UserOutlined} from "@ant-design/icons";
 import logo from "../../assets/logo_escualos.svg";
 import classNames from "classnames";
 import {Link, useNavigate} from "react-router-dom";
+import {AuthContext} from "../../infrastructure/authentication/AuthProvider";
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -63,13 +64,17 @@ export const Sidebar = () => {
     const iconClassNames = () => {
         return collapsed ? 'collapsed-menu-icon' : 'menu-icon';
     }
+    const { authService } = React.useContext(AuthContext);
+    const logout = () => {
+        authService.logout()
+    }
     const items: MenuItem[] = [
         getItemLink('/competitions', '1', <GoldOutlined className={iconClassNames()} />),
         getItemLink('/profile', '2', <UserOutlined className={iconClassNames()} />),
         getItemLink('/admin', '3', <SettingOutlined className={iconClassNames()} />,[
             getItemLink('/admin/team', 'sub3-1', <TeamOutlined className={iconClassNames()} />)
         ]),
-        getItemLink('/logout', '4', <LogoutOutlined className={iconClassNames()} />)
+        getItem(<Link to={'/logout'} onClick={logout}>Logout</Link>, '4', <Link to={'/logout'} onClick={logout}><LogoutOutlined className={iconClassNames()} /></Link> )
     ];
     const expandMenuToOpenSubmenu: MenuProps['onOpenChange'] = keys => {
         if (keys.length > 0 && collapsed) {

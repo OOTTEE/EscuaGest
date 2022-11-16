@@ -13,7 +13,9 @@
     "@types/react-dom": "^18.0.6",
     "antd": "^4.24.2",
     "classnames": "^2.3.2",
+    "env-cmd": "^10.1.0",
     "fetch-intercept": "^2.4.0",
+    "oidc-client": "^1.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.3",
@@ -26,7 +28,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate-client": "npx @openapitools/openapi-generator-cli generate  -i ../api/src/main/resources/static/openapi.yml -g typescript-fetch -o ./src/generated/api/"
+    "generate-client": "npx @openapitools/openapi-generator-cli generate  -i ../api/src/main/resources/static/openapi.yml -g typescript-fetch -o ./src/generated/api/",
+    "start:dev": "env-cmd -f config/dev.env npm start",
+    "start:prod": "env-cmd -f config/prod.env npm start"
   },
   "eslintConfig": {
     "extends": [
