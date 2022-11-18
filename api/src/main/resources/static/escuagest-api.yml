@@ -13,16 +13,16 @@ servers:
 tags:
   - name: user
     description: Operations about user
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
+  - name: competition
+  - name: sessions
+  - name: races
 paths:
-  /users:
+  /api/v2/users:
     get:
       tags:
         - user
       summary: Get logged user info
-      operationId: getLoggedUserInfo
+      operationId: GetLoggedUserInfo
       responses:
         200:
           description: successful operation
@@ -30,6 +30,60 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDTO'
+  /api/v2/competitions:
+    get:
+      tags:
+        - competition
+        - sessions
+        - races
+      summary: return all competitions
+      operationId: GetAllCompetitions
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          schema:
+            type: integer
+        - in: query
+          name: sortBy
+          schema:
+            type: string
+        - in: query
+          name: direction
+          schema:
+            $ref: '#/components/schemas/SortDirectionEnum'
+      responses:
+        200:
+          description: return a list of competitions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CompetitionDTO'
+                  paged:
+                    $ref: '#/components/schemas/PagedDTO'
+                  _links:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/LinkDTO'
+        400:
+          $ref: '#/components/schemas/BadRequestError'
+        401:
+          $ref: '#/components/schemas/UnauthorizedError'
+        403:
+          $ref: '#/components/schemas/ForbiddenError'
+        404:
+          $ref: '#/components/schemas/NotFoundError'
+        500:
+          $ref: '#/components/schemas/InternalServerError'
+
   /swimmers/{username}:
     get:
       tags:
@@ -105,64 +159,133 @@ components:
           schema:
             $ref: '#components/schemas/InternalServerError'
   schemas:
-    UserDTO:
+    CompetitionDTO:
       type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        fullname:
-          type: string
-        firstName:
-          type: string
-        lastsNames:
-          type: string
-        groups:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-        emailVerified:
-          type: boolean
-        email:
-          type: string
-    SwimmerDTO:
-      type: object
-      properties:
-        id:
-          type: string
-        username:
-          type: string
-        licence:
-          type: string
-        birthday:
-          type: string
-          format: date
-          description: birth day date
-          example: "2021-01-20"
-    CreateSwimmerDTO:
-      type: object
-      properties:
-        username:
-          type: string
-        licence:
-          type: string
-        birthday:
-          type: string
-          format: date
-          description: birth day date
-          example: "2021-01-20"
       required:
-        - username
-    InternalServerError:
-      type: object
+        - title
+        - reference
+        - inscriptionLimitDate
+        - maxInscriptionsPerSwimmer
       properties:
-        code:
-          type: integer
-          format: int32
-        message:
+        title:
           type: string
+          maximum: 80
+        reference:
+          type: string
+          pattern: ^[a-zA-Z0-9-_]{7,80}$
+        description:
+          type: string
+        competitionDay:
+          type: string
+        inscriptionLimitDate:
+          type: string
+        maxInscriptionsPerSwimmer:
+          type: integer
+        location:
+          type: string
+        sessions:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/sessionDTO'
+    SessionDTO:
+      type: object
+      required:
+        - date
+        - name
+      properties:
+        date:
+          type: string
+        name:
+          type: string
+        races:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/racesDTO'
+    RacesDTO:
+      required:
+        - name
+        - style
+      properties:
+        name:
+          type: string
+        style:
+          type: string
+          enum:
+            - backstroke
+            - freestyle
+            - four_styles
+            - breaststroke
+    LinkDTO:
+      properties:
+        href:
+          type: string
+        name:
+          type: string
+    PagedDTO:
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        totalPage:
+          type: integer
+    SortDirectionEnum:
+      type: string
+      enum:
+        - DESC
+        - ASC
+    ErrorFields:
+      properties:
+        status:
+          type: string
+        title:
+          type: string
+        detail:
+          type: string
+        type:
+          type: string
+        traceId:
+          type: string
+    NotFoundError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      properties:
+        status:
+          example: 404
+        type:
+          example: NotFoundError
+    ForbiddenError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      properties:
+        status:
+          example: 404
+        type:
+          example: ForbiddenError
+    InternalServerError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      properties:
+        status:
+          example: 404
+        type:
+          example: InternalServerError
+    UnauthorizedError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      properties:
+        status:
+          example: 404
+        type:
+          example: UnauthorizedError
+    BadRequestError:
+      allOf:
+        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      properties:
+        status:
+          example: 404
+        type:
+          example: BadRequestError
 
 security:
   - bearerAuth: []
