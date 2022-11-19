@@ -15,7 +15,6 @@ public class UserApiDelegateImpl implements UsersApiDelegate {
     private static final Logger LOG = LoggerFactory.getLogger(UserApiDelegateImpl.class);
     private UserSrv userSrv;
 
-
     public UserApiDelegateImpl(UserSrv userSrv) {
         this.userSrv = userSrv;
     }
@@ -23,7 +22,7 @@ public class UserApiDelegateImpl implements UsersApiDelegate {
     @Override
     public Mono<ResponseEntity<UserDTO>> getLoggedUserInfo(ServerWebExchange exchange) {
         return userSrv.getUserInfo(exchange.getPrincipal())
-                .map(user -> UserMapper.toUserDTO(user))
+                .map(user -> UserMapper.INSTANCE.toDto(user))
                 .map(ResponseEntity::ok);
     }
 

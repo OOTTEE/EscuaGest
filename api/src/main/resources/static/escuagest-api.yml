@@ -1,4 +1,4 @@
-openapi: 3.0.2
+openapi: 3.0.3
 info:
   title: Escuagest API
   description: "Escuagest API"
@@ -15,9 +15,9 @@ tags:
     description: Operations about user
   - name: competition
   - name: sessions
-  - name: races
+  - name: race
 paths:
-  /api/v2/users:
+  /users:
     get:
       tags:
         - user
@@ -30,14 +30,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDTO'
-  /api/v2/competitions:
+  /competitions:
     get:
+      summary: return all competitions
+      operationId: GetAllCompetitions
       tags:
         - competition
         - sessions
-        - races
-      summary: return all competitions
-      operationId: GetAllCompetitions
+        - race
       parameters:
         - in: query
           name: offset
@@ -73,77 +73,54 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/LinkDTO'
-        400:
-          $ref: '#/components/schemas/BadRequestError'
-        401:
-          $ref: '#/components/schemas/UnauthorizedError'
-        403:
-          $ref: '#/components/schemas/ForbiddenError'
-        404:
-          $ref: '#/components/schemas/NotFoundError'
-        500:
-          $ref: '#/components/schemas/InternalServerError'
-
-  /swimmers/{username}:
-    get:
+    post:
       tags:
-        - swimmer
-      summary: Get swimmer by id
-      operationId: getSwimmerByUsername
+        - competition
+        - sessions
+        - race
+      operationId: AddCompetition
+      responses:
+        200:
+          description: return a list of competitions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionDTO'
+    put:
+      summary: full update of a competition,
+      operationId: UpdateCompetitionByReference
+      tags:
+        - competition
+        - sessions
+        - race
+      responses:
+        200:
+          description: The competition updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompetitionDTO'
+  /competitions/{reference-id}:
+    get:
+      summary: Get a competition from a reference-id
+      operationId: GetCompetitionsByReference
+      tags:
+        - competition
+        - sessions
+        - race
       parameters:
-        - name: username
-          in: path
-          description: 'The username that needs to be fetched'
+        - in: path
+          name: reference-id
           required: true
           schema:
             type: string
       responses:
         200:
-          description: successful operation
+          description: The competition selected with the reference
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SwimmerDTO'
-        404:
-          description: User not found
-          content: { }
-  /swimmers:
-    get:
-      tags:
-        - swimmer
-      summary: Get all swimmers
-      operationId: getAllSwimmers
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SwimmerDTO'
-        404:
-          description: User not found
-          content: { }
-    post:
-      tags:
-        - swimmer
-      summary: Create a new swimmer for a user.
-      operationId: postNewUser
-      requestBody:
-        description: Swimmer object thats needs to be added on the system.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateSwimmerDTO'
-      responses:
-        201:
-          description: Swimmer created.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SwimmerDTO'
-
+                $ref: '#/components/schemas/CompetitionDTO'
 
 components:
   securitySchemes:
@@ -159,6 +136,28 @@ components:
           schema:
             $ref: '#components/schemas/InternalServerError'
   schemas:
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        fullname:
+          type: string
+        firstName:
+          type: string
+        lastsNames:
+          type: string
+        groups:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        emailVerified:
+          type: boolean
+        email:
+          type: string
     CompetitionDTO:
       type: object
       required:
@@ -186,7 +185,7 @@ components:
         sessions:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/sessionDTO'
+            $ref: '#/components/schemas/SessionDTO'
     SessionDTO:
       type: object
       required:
@@ -197,11 +196,11 @@ components:
           type: string
         name:
           type: string
-        races:
+        race:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/racesDTO'
-    RacesDTO:
+            $ref: '#/components/schemas/RaceDTO'
+    RaceDTO:
       required:
         - name
         - style
@@ -247,45 +246,50 @@ components:
         traceId:
           type: string
     NotFoundError:
-      allOf:
-        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      description: Not found
       properties:
         status:
+          type: string
           example: 404
         type:
+          type: string
           example: NotFoundError
     ForbiddenError:
-      allOf:
-        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      description: Forbidden
       properties:
         status:
+          type: string
           example: 404
         type:
+          type: string
           example: ForbiddenError
-    InternalServerError:
-      allOf:
-        - $ref: '#/components/schemas/ErrorFieldsDTO'
-      properties:
-        status:
-          example: 404
-        type:
-          example: InternalServerError
     UnauthorizedError:
-      allOf:
-        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      description: Unauthorized
       properties:
         status:
+          type: string
           example: 404
         type:
+          type: string
           example: UnauthorizedError
     BadRequestError:
-      allOf:
-        - $ref: '#/components/schemas/ErrorFieldsDTO'
+      description: Bad Request
       properties:
         status:
+          type: string
           example: 404
         type:
+          type: string
           example: BadRequestError
+    InternalServerError:
+      description: Internal Server Error
+      properties:
+        status:
+          type: string
+          example: 404
+        type:
+          type: string
+          example: InternalServerError
 
 security:
   - bearerAuth: []
