@@ -1,9 +1,9 @@
 package com.escualos.api.competition;
 
 import com.escualos.domain.competition.Session;
+import com.escualos.model.SessionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.openapitools.model.SessionDTO;
 
 @Mapper
 public interface SessionMapper {

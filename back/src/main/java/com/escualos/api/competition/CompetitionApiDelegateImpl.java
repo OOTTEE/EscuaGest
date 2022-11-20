@@ -1,17 +1,30 @@
 package com.escualos.api.competition;
 
-import org.openapitools.api.CompetitionsApiDelegate;
-import org.openapitools.model.CompetitionDTO;
-import org.openapitools.model.GetAllCompetitions200Response;
-import org.openapitools.model.SortDirectionEnum;
+import com.escualos.api.CompetitionsApiDelegate;
+import com.escualos.domain.competition.CompetitionSrv;
+import com.escualos.model.CompetitionDTO;
+import com.escualos.model.GetAllCompetitions200Response;
+import com.escualos.model.SortDirectionEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
+
 public class CompetitionApiDelegateImpl implements CompetitionsApiDelegate {
+
+    @Autowired
+    private CompetitionSrv competitionSrv;
+
     @Override
-    public Mono<ResponseEntity<CompetitionDTO>> addCompetition(ServerWebExchange exchange) {
-        return CompetitionsApiDelegate.super.addCompetition(exchange);
+    public Mono<ResponseEntity<CompetitionDTO>> addCompetition(Mono<CompetitionDTO> competitionDTO, ServerWebExchange exchange) {
+        return competitionDTO
+                .map(CompetitionMapper.INSTANCE::toEntity)
+                .flatMap(competitionSrv::create)
+                .map(competition -> ResponseEntity
+                        .created(URI.create("/api/v2/competitions/" + competition.getReference()))
+                        .build());
     }
 
     @Override
@@ -25,7 +38,7 @@ public class CompetitionApiDelegateImpl implements CompetitionsApiDelegate {
     }
 
     @Override
-    public Mono<ResponseEntity<CompetitionDTO>> updateCompetitionByReference(ServerWebExchange exchange) {
-        return CompetitionsApiDelegate.super.updateCompetitionByReference(exchange);
+    public Mono<ResponseEntity<CompetitionDTO>> updateCompetitionByReference(Mono<CompetitionDTO> competitionDTO, ServerWebExchange exchange) {
+        return CompetitionsApiDelegate.super.updateCompetitionByReference(competitionDTO, exchange);
     }
 }

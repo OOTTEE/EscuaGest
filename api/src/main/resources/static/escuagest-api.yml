@@ -74,11 +74,17 @@ paths:
                     items:
                       $ref: '#/components/schemas/LinkDTO'
     post:
+      operationId: AddCompetition
       tags:
         - competition
         - sessions
         - race
-      operationId: AddCompetition
+      requestBody:
+        description: Body request to create a Competition
+        content:
+           application/json:
+             schema:
+               $ref: '#/components/schemas/CompetitionDTO'
       responses:
         200:
           description: return a list of competitions
@@ -93,6 +99,12 @@ paths:
         - competition
         - sessions
         - race
+      requestBody:
+        description: Body request to create a Competition
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompetitionDTO'
       responses:
         200:
           description: The competition updated
@@ -175,9 +187,9 @@ components:
         description:
           type: string
         competitionDay:
-          type: string
+          type: date
         inscriptionLimitDate:
-          type: string
+          type: date-time
         maxInscriptionsPerSwimmer:
           type: integer
         location:
@@ -193,10 +205,10 @@ components:
         - name
       properties:
         date:
-          type: string
+          type: date
         name:
           type: string
-        race:
+        races:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/RaceDTO'
@@ -205,8 +217,8 @@ components:
         - name
         - style
       properties:
-        name:
-          type: string
+        distance:
+          type: integer
         style:
           type: string
           enum:

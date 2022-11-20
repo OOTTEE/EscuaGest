@@ -2,6 +2,7 @@ package com.escualos.domain.competition;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,12 +12,13 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 @Document
 @Builder
 @Data
+@EqualsAndHashCode
 public class Competition {
     @Id
     private String id;
@@ -32,7 +34,7 @@ public class Competition {
     private String description;
     private LocalDate competitionDay;
     @NotNull
-    private LocalDateTime inscriptionLimitDate;
+    private OffsetDateTime inscriptionLimitDate;
     @NotNull
     private int maxInscriptionsPerSwimmer;
     private String location;

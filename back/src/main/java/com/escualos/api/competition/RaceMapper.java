@@ -1,10 +1,9 @@
 package com.escualos.api.competition;
 
 import com.escualos.domain.competition.Race;
+import com.escualos.model.RaceDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.openapitools.model.RaceDTO;
-import org.openapitools.model.RacesDTO;
 
 @Mapper
 public interface RaceMapper {
@@ -13,6 +12,6 @@ public interface RaceMapper {
 
     RaceDTO toDto(Race race);
 
-    Race toEntity(RacesDTO racesDTO);
+    Race toEntity(RaceDTO raceDTO);
 
 }

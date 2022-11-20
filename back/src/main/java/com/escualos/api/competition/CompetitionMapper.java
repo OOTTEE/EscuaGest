@@ -1,9 +1,9 @@
 package com.escualos.api.competition;
 
 import com.escualos.domain.competition.Competition;
+import com.escualos.model.CompetitionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.openapitools.model.CompetitionDTO;
 
 @Mapper
 public interface CompetitionMapper {
@@ -12,4 +12,5 @@ public interface CompetitionMapper {
     CompetitionDTO toDto(Competition competition);
 
     Competition toEntity(CompetitionDTO competitionDTO);
+
 }

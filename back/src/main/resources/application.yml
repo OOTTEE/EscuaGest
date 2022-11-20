@@ -18,6 +18,3 @@ keycloak:
   resource: ${ESCUAGEST_KEYCLOAK_RESOURCE}
   public-client: ${ESCUAGEST_KEYCLOAK_PUBLIC_CLIENT}
 
-springdoc:
-  swagger-ui:
-    url: /openapi.yml

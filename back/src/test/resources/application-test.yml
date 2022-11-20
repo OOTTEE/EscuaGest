@@ -1,0 +1,10 @@
+logging:
+  level:
+    root: INFO
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  mongodb:
+    embedded:
+      version: 5.0.6

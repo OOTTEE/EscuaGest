@@ -2,6 +2,7 @@ package com.escualos.domain.competition;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Builder
 @Data
+@EqualsAndHashCode
 public class Session {
     @NotNull
     LocalDate date;

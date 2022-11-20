@@ -10,39 +10,24 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>${project.parent.groupId}</groupId>
     <version>${project.parent.version}</version>
     <artifactId>api</artifactId>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <openapi.generator.maven.plugin.inputSpec>
-            ${project.basedir}/src/main/resources/static/escuagest-api.yml
+        <openapi.generator.maven.plugin.inputSpec>${project.basedir}/src/main/resources/static/escuagest-api.yml
         </openapi.generator.maven.plugin.inputSpec>
-        <openapi.generator.maven.plugin.generatorName>
-            spring
-        </openapi.generator.maven.plugin.generatorName>
+        <openapi.generator.maven.plugin.generatorName>spring</openapi.generator.maven.plugin.generatorName>
         <openapi.generator.maven.plugin.configurationFile>
             ${project.basedir}/src/main/resources/static/spring-generator.json
         </openapi.generator.maven.plugin.configurationFile>
+        <openapi.generator.maven.plugin.apiPackage>com.escualos.api.controller
+        </openapi.generator.maven.plugin.apiPackage>
+        <openapi.generator.maven.plugin.modelPackage>com.escualos.api.model
+        </openapi.generator.maven.plugin.modelPackage>
     </properties>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>15</source>
-                    <target>15</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
@@ -98,6 +83,23 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-test</artifactId>
+            <version>2.6.6</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
