@@ -24,6 +24,11 @@
         </openapi.generator.maven.plugin.apiPackage>
         <openapi.generator.maven.plugin.modelPackage>com.escualos.api.model
         </openapi.generator.maven.plugin.modelPackage>
+        <openapi.generator.maven.plugin.supportingFilesToGenerate>ApiUtil.java
+        </openapi.generator.maven.plugin.supportingFilesToGenerate>
+        <openapi.generator.maven.plugin.importMappings>
+            Pageable=org.springframework.data.domain.Pageable;Page=org.springframework.data.domain.PageImpl
+        </openapi.generator.maven.plugin.importMappings>
     </properties>
 
     <build>
@@ -38,9 +43,16 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <apiPackage>com.escualos.api</apiPackage>
-                            <modelPackage>com.escualos.model</modelPackage>
-                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
+                            <apiPackage>${openapi.generator.maven.plugin.apiPackage}</apiPackage>
+                            <modelPackage>${openapi.generator.maven.plugin.modelPackage}</modelPackage>
+                            <supportingFilesToGenerate>${openapi.generator.maven.plugin.supportingFilesToGenerate}
+                            </supportingFilesToGenerate>
+                            <importMappings>
+                                Pageagble=org.springframework.data.domain.Pageable,Page=org.springframework.data.domain.Page
+                            </importMappings>
+                            <typeMappings>
+                                pageable=Pageable,page=Page
+                            </typeMappings>
                         </configuration>
                     </execution>
                 </executions>
@@ -52,6 +64,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-commons</artifactId>
             <scope>provided</scope>
         </dependency>
         <dependency>

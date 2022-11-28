@@ -19,10 +19,11 @@ tags:
 paths:
   /users:
     get:
-      tags:
-        - user
       summary: Get logged user info
-      operationId: GetLoggedUserInfo
+      operationId: GetLoggedUser
+      tags:
+        - GetLoggedUser
+        - user
       responses:
         200:
           description: successful operation
@@ -35,56 +36,36 @@ paths:
       summary: return all competitions
       operationId: GetAllCompetitions
       tags:
+        - GetAllCompetitions
         - competition
         - sessions
         - race
       parameters:
         - in: query
-          name: offset
+          name: Pageable
+          required: false
           schema:
-            type: integer
-        - in: query
-          name: limit
-          schema:
-            type: integer
-        - in: query
-          name: sortBy
-          schema:
-            type: string
-        - in: query
-          name: direction
-          schema:
-            $ref: '#/components/schemas/SortDirectionEnum'
+            $ref: '#/components/schemas/Pageable'
       responses:
         200:
           description: return a list of competitions
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  content:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/CompetitionDTO'
-                  paged:
-                    $ref: '#/components/schemas/PagedDTO'
-                  _links:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/LinkDTO'
+                type: Page
     post:
       operationId: AddCompetition
       tags:
+        - AddCompetition
         - competition
         - sessions
         - race
       requestBody:
         description: Body request to create a Competition
         content:
-           application/json:
-             schema:
-               $ref: '#/components/schemas/CompetitionDTO'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompetitionDTO'
       responses:
         200:
           description: return a list of competitions
@@ -94,8 +75,9 @@ paths:
                 $ref: '#/components/schemas/CompetitionDTO'
     put:
       summary: full update of a competition,
-      operationId: UpdateCompetitionByReference
+      operationId: UpdateCompetition
       tags:
+        - UpdateCompetition
         - competition
         - sessions
         - race
@@ -117,6 +99,7 @@ paths:
       summary: Get a competition from a reference-id
       operationId: GetCompetitionsByReference
       tags:
+        - GetCompetitionByIdReference
         - competition
         - sessions
         - race
@@ -232,14 +215,10 @@ components:
           type: string
         name:
           type: string
-    PagedDTO:
-      properties:
-        page:
-          type: integer
-        limit:
-          type: integer
-        totalPage:
-          type: integer
+    Pageable:
+      type: pageable
+    Page:
+      type: page
     SortDirectionEnum:
       type: string
       enum:

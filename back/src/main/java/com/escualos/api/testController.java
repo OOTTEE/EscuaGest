@@ -1,6 +1,6 @@
 package com.escualos.api;
 
-import com.escualos.security.Roles;
+import com.escualos.core.security.Roles;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

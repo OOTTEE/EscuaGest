@@ -1,7 +1,7 @@
 package com.escualos.api.user;
 
-import com.escualos.domain.user.User;
-import com.escualos.model.UserDTO;
+import com.escualos.api.model.UserDTO;
+import com.escualos.core.domain.user.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

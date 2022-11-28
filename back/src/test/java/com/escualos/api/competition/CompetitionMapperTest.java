@@ -1,13 +1,14 @@
 package com.escualos.api.competition;
 
 
-import com.escualos.domain.competition.Competition;
-import com.escualos.domain.competition.Race;
-import com.escualos.domain.competition.Session;
-import com.escualos.domain.competition.Style;
-import com.escualos.model.CompetitionDTO;
-import com.escualos.model.RaceDTO;
-import com.escualos.model.SessionDTO;
+import com.escualos.api.competition.mappers.CompetitionMapper;
+import com.escualos.api.model.CompetitionDTO;
+import com.escualos.api.model.RaceDTO;
+import com.escualos.api.model.SessionDTO;
+import com.escualos.core.domain.competition.Competition;
+import com.escualos.core.domain.competition.Race;
+import com.escualos.core.domain.competition.Session;
+import com.escualos.core.domain.competition.Style;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
