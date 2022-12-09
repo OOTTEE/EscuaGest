@@ -23,7 +23,6 @@ paths:
       operationId: GetLoggedUser
       tags:
         - GetLoggedUser
-        - user
       responses:
         200:
           description: successful operation
@@ -31,35 +30,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserDTO'
+        default:
+          $ref: '#/components/responses/Error'
   /competitions:
     get:
       summary: return all competitions
       operationId: GetAllCompetitions
       tags:
         - GetAllCompetitions
-        - competition
-        - sessions
-        - race
-      parameters:
-        - in: query
-          name: Pageable
-          required: false
-          schema:
-            $ref: '#/components/schemas/Pageable'
       responses:
         200:
           description: return a list of competitions
           content:
             application/json:
               schema:
-                type: Page
+                type: array
+                items:
+                  $ref: '#/components/schemas/CompetitionDTO'
+        default:
+          $ref: '#/components/responses/Error'
     post:
       operationId: AddCompetition
       tags:
         - AddCompetition
-        - competition
-        - sessions
-        - race
       requestBody:
         description: Body request to create a Competition
         content:
@@ -67,20 +60,19 @@ paths:
             schema:
               $ref: '#/components/schemas/CompetitionDTO'
       responses:
-        200:
+        201:
           description: return a list of competitions
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompetitionDTO'
+        default:
+          $ref: '#/components/responses/Error'
     put:
       summary: full update of a competition,
       operationId: UpdateCompetition
       tags:
         - UpdateCompetition
-        - competition
-        - sessions
-        - race
       requestBody:
         description: Body request to create a Competition
         content:
@@ -88,21 +80,20 @@ paths:
             schema:
               $ref: '#/components/schemas/CompetitionDTO'
       responses:
-        200:
+        201:
           description: The competition updated
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompetitionDTO'
+        default:
+          $ref: '#/components/responses/Error'
   /competitions/{reference-id}:
     get:
       summary: Get a competition from a reference-id
       operationId: GetCompetitionsByReference
       tags:
         - GetCompetitionByIdReference
-        - competition
-        - sessions
-        - race
       parameters:
         - in: path
           name: reference-id
@@ -116,6 +107,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CompetitionDTO'
+        default:
+          $ref: '#/components/responses/Error'
 
 components:
   securitySchemes:
@@ -124,12 +117,12 @@ components:
       scheme: bearer
       bearerFormat: JWT
   responses:
-    InternalServerError:
-      description: "Generic Internal Error"
+    Error:
+      description: Request error
       content:
         application/json:
           schema:
-            $ref: '#components/schemas/InternalServerError'
+            $ref: DefaultErrorDTO
   schemas:
     UserDTO:
       type: object
@@ -170,9 +163,9 @@ components:
         description:
           type: string
         competitionDay:
-          type: date
+          type: string
         inscriptionLimitDate:
-          type: date-time
+          type: string
         maxInscriptionsPerSwimmer:
           type: integer
         location:
@@ -188,7 +181,7 @@ components:
         - name
       properties:
         date:
-          type: date
+          type: string
         name:
           type: string
         races:
@@ -209,78 +202,16 @@ components:
             - freestyle
             - four_styles
             - breaststroke
-    LinkDTO:
+    DefaultErrorDTO:
+      description: Request error DTO
       properties:
-        href:
+        code:
           type: string
-        name:
-          type: string
-    Pageable:
-      type: pageable
-    Page:
-      type: page
-    SortDirectionEnum:
-      type: string
-      enum:
-        - DESC
-        - ASC
-    ErrorFields:
-      properties:
-        status:
-          type: string
-        title:
-          type: string
-        detail:
-          type: string
-        type:
+        message:
           type: string
         traceId:
           type: string
-    NotFoundError:
-      description: Not found
-      properties:
-        status:
-          type: string
-          example: 404
-        type:
-          type: string
-          example: NotFoundError
-    ForbiddenError:
-      description: Forbidden
-      properties:
-        status:
-          type: string
-          example: 404
-        type:
-          type: string
-          example: ForbiddenError
-    UnauthorizedError:
-      description: Unauthorized
-      properties:
-        status:
-          type: string
-          example: 404
-        type:
-          type: string
-          example: UnauthorizedError
-    BadRequestError:
-      description: Bad Request
-      properties:
-        status:
-          type: string
-          example: 404
-        type:
-          type: string
-          example: BadRequestError
-    InternalServerError:
-      description: Internal Server Error
-      properties:
-        status:
-          type: string
-          example: 404
-        type:
-          type: string
-          example: InternalServerError
+
 
 security:
   - bearerAuth: []

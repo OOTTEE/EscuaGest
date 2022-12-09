@@ -1,4 +1,4 @@
-package com.escualos.core.domain.competition;
+package com.escualos.core.competition;
 
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 @Document
@@ -31,9 +30,9 @@ public class Competition {
     @Pattern(regexp = "^[a-zA-Z0-9-_]+$")
     private String reference;
     private String description;
-    private LocalDate competitionDay;
+    private ZonedDateTime competitionDate;
     @NotNull
-    private OffsetDateTime inscriptionLimitDate;
+    private ZonedDateTime inscriptionLimitDate;
     @NotNull
     @Positive
     private int maxInscriptionsPerSwimmer;

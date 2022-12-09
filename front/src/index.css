@@ -3,6 +3,10 @@
     src: local('Electrolize'), url("./assets/fonts/Electrolize-Regular.ttf") format('opentype');
 }
 
+body {
+    margin: 0px;
+}
+
 * {
     font-family: Electrolize;
 }

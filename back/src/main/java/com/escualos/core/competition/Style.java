@@ -1,4 +1,4 @@
-package com.escualos.core.domain.competition;
+package com.escualos.core.competition;
 
 public enum Style {
     BACKSTROKE,

@@ -22,8 +22,6 @@ class HttpClient {
 
     public get = async <T extends unknown>(url: string) => {
         return await this.authService.userManager.getUser().then(user => {
-            console.log(user?.id_token)
-            console.log(user)
             const tokenHeader = {
                 Authorization: "Bearer " + user?.id_token
             }

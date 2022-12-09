@@ -1,4 +1,4 @@
-package com.escualos.core.domain.swimmer;
+package com.escualos.core.swimmer;
 
 import lombok.Builder;
 import lombok.Data;

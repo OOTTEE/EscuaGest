@@ -1,11 +1,12 @@
 import {useRoutes} from "react-router-dom";
 import {MainLayout} from "./layout/MainLayout";
 import {Dashboard} from "./dashboard/Dashboard";
-import {CompeticionesDashboard} from "./competiciones-dashboard/CompeticionesDashboard";
+import {CompetitionDashboard} from "./competition-dashboard/CompetitionDashboard";
 import {Login} from "./login/Login";
 import React from "react";
 import {AuthProvider} from "../infrastructure/authentication/AuthProvider";
 import {LoginSuccess} from "../infrastructure/authentication/AuthService";
+import {CreateCompetitionForm} from "./competition-create-form/CreateCompetitionForm";
 
 
 export const Router = () => {
@@ -22,7 +23,11 @@ export const Router = () => {
                 },
                 {
                     path: "/competitions",
-                    element: <CompeticionesDashboard/>
+                    element: <CompetitionDashboard/>
+                },
+                {
+                    path: "/competitions/new",
+                    element: <CreateCompetitionForm data={undefined}/>
                 },
                 {
                     path: "/profile",

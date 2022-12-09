@@ -1,5 +1,4 @@
 {
-  "delegatePattern": true,
   "reactive": true,
   "additionalModelTypeAnnotations": "@lombok.Builder;@lombok.NoArgsConstructor;@lombok.AllArgsConstructor;@lombok.EqualsAndHashCode",
   "useTags": true

@@ -1,4 +1,4 @@
-package com.escualos.core.domain.user;
+package com.escualos.core.user;
 
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import reactor.core.publisher.Mono;

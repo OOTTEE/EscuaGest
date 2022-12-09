@@ -1,4 +1,4 @@
-package com.escualos.core.domain.swimmer;
+package com.escualos.core.swimmer;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

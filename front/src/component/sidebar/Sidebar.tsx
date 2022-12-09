@@ -19,6 +19,11 @@ export const Views = [
         linkable: true
     },
     {
+        path: '/competitions/new',
+        title: 'Crear Competición',
+        linkable: true
+    },
+    {
         path: '/profile',
         title: 'Perfil',
         linkable: true

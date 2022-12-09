@@ -1,4 +1,4 @@
-package com.escualos.core.domain.swimmer;
+package com.escualos.core.swimmer;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;

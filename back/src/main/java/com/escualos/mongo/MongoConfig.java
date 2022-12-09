@@ -15,7 +15,7 @@ import java.time.OffsetDateTime;
 import java.util.Arrays;
 
 @Configuration
-@EnableMongoRepositories("com.escualos.domain")
+@EnableMongoRepositories("com.escualos.core")
 public class MongoConfig {
     static final String DATE_TIME = "dateTime";
     @Bean

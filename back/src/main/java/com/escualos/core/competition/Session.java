@@ -1,4 +1,4 @@
-package com.escualos.core.domain.competition;
+package com.escualos.core.competition;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 
@@ -15,7 +15,7 @@ import java.util.Map;
 @EqualsAndHashCode
 public class Session {
     @NotNull
-    LocalDate date;
+    ZonedDateTime date;
     @NotNull
     @Max(50)
     String name;

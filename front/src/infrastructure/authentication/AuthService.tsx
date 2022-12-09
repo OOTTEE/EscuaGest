@@ -17,7 +17,7 @@ export class AuthService {
         })
         this.userManager.getUser()
             .then(value => this.user = value)
-        Log.level = Log.INFO
+        Log.level = Log.ERROR
         Log.logger = console
     }
 

@@ -1,9 +1,9 @@
 import './MainLatout.css'
 import {Outlet, useLocation} from "react-router-dom";
 import {Breadcrumb, Layout} from "antd";
-import {Content, Footer, Header} from "antd/lib/layout/layout";
+import {PageHeader} from "@ant-design/pro-layout";
 import {Sidebar, Views} from "../sidebar/Sidebar";
-import Title from "antd/lib/typography/Title";
+import {Content, Footer, Header} from "antd/lib/layout/layout";
 
 const breadcrumb = () => {
     return (
@@ -22,10 +22,15 @@ export const MainLayout = () => {
             <Sidebar/>
             <Layout className="site-layout">
                 <Header className="site-layout-background" style={{padding: 0, paddingLeft: 24, paddingTop: 4}}>
-                    <Title>{Views
-                        .filter(value => value.path === path)
-                        .map(value => value.title)
-                        .pop()}</Title>
+                    <PageHeader
+                        ghost={false}
+                        onBack={() => window.history.back()}
+                        title={Views
+                            .filter(value => value.path === path)
+                            .map(value => value.title)
+                            .pop()}
+                    >
+                    </PageHeader>
                 </Header>
                 <Content style={{margin: '0 16px'}}>
                     {breadcrumb()}

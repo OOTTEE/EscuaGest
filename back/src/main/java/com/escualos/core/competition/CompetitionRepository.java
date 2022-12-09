@@ -1,4 +1,4 @@
-package com.escualos.core.domain.competition;
+package com.escualos.core.competition;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Mono;

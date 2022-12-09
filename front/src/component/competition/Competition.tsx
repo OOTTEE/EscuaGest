@@ -12,7 +12,7 @@ const {Meta} = Card;
 
 export const Competition = ({competition_id, style}: CompetitionProps) => {
     return (
-        <Card style={style} actions={[
+        <Card style={{borderRadius: 2}} actions={[
             <Button icon={<SettingOutlined key='competition-settings' title={'Editar competicion'}/>}
                     style={{color: "gray"}}
                     type="link">

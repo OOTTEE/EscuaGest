@@ -1,6 +1,7 @@
 package com.escualos.core.domain.competition;
 
-import com.escualos.core.IntegrationTest;
+import com.escualos.DBIntegrationTest;
+import com.escualos.core.competition.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +16,10 @@ import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 import javax.validation.ConstraintViolationException;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ import java.util.Map;
 )
 @ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = "spring.mongodb.embedded.version=5.0.6")
-class CompetitionSrvImplTest extends IntegrationTest {
+class CompetitionSrvImplTest extends DBIntegrationTest {
 
     private static Logger LOG = LoggerFactory.getLogger(CompetitionSrvImplTest.class);
     @Autowired
@@ -70,7 +71,7 @@ class CompetitionSrvImplTest extends IntegrationTest {
                 .map(i -> Competition.builder().title("Competition " + i)
                         .reference("comp-"+i)
                         .maxInscriptionsPerSwimmer(1)
-                        .inscriptionLimitDate(OffsetDateTime.of(2022,10,1,0,0,0,0,ZoneOffset.UTC))
+                        .inscriptionLimitDate(ZonedDateTime.of(2022,10,1,0,0,0,0,ZoneOffset.UTC))
                         .build())).blockLast();
         StepVerifier.create(competitionSrv
                         .getPaginated(PageRequest.of(0, 8))
@@ -122,7 +123,7 @@ class CompetitionSrvImplTest extends IntegrationTest {
     void throwValidationErrorToTryCreateACompetitionWithoutTitle() {
         final Competition com = Competition.builder()
                 .reference("competition")
-                .inscriptionLimitDate(OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
+                .inscriptionLimitDate(ZonedDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
                 .maxInscriptionsPerSwimmer(0)
                 .build();
         StepVerifier.create(competitionSrv.create(com))
@@ -134,7 +135,7 @@ class CompetitionSrvImplTest extends IntegrationTest {
     void throwValidationErrorToTryCreateACompetitionWithoutReference() {
         final Competition com = Competition.builder()
                 .title("competition")
-                .inscriptionLimitDate(OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
+                .inscriptionLimitDate(ZonedDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
                 .maxInscriptionsPerSwimmer(0)
                 .build();
         StepVerifier.create(competitionSrv.create(com))
@@ -159,7 +160,7 @@ class CompetitionSrvImplTest extends IntegrationTest {
         final Competition com = Competition.builder()
                 .title("competition")
                 .reference("competition")
-                .inscriptionLimitDate(OffsetDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
+                .inscriptionLimitDate(ZonedDateTime.of(LocalDateTime.now(), ZoneOffset.UTC))
                 .maxInscriptionsPerSwimmer(-1)
                 .build();
         StepVerifier.create(competitionSrv.create(com))
@@ -183,12 +184,12 @@ class CompetitionSrvImplTest extends IntegrationTest {
     }
 
     private static Competition createCompetition(String Competition, String reference, int maxInscriptionsPerSwimmer, int month, String lugar_x, String description, Map<Integer, Session> sessions) {
-        return com.escualos.core.domain.competition.Competition.builder()
+        return com.escualos.core.competition.Competition.builder()
                 .title(Competition)
                 .reference(reference)
                 .maxInscriptionsPerSwimmer(maxInscriptionsPerSwimmer)
-                .inscriptionLimitDate(OffsetDateTime.of(2022, month, 2, 10, 0, 0, 0, ZoneOffset.UTC))
-                .competitionDay(LocalDate.of(2022, month, 2))
+                .inscriptionLimitDate(ZonedDateTime.of(2022, month, 2, 10, 0, 0, 0, ZoneOffset.UTC))
+                .competitionDate(ZonedDateTime.from(Instant.now()))
                 .location(lugar_x)
                 .description(description)
                 .sessions(sessions)
@@ -197,7 +198,7 @@ class CompetitionSrvImplTest extends IntegrationTest {
 
     private static Session createSession(String session_name, int month, Race race1, Race race2) {
         return Session.builder()
-                .name(session_name).date(LocalDate.of(2022, month, 3))
+                .name(session_name).date(ZonedDateTime.now())
                 .races(Map.of(0, race1, 1, race2))
                 .build();
     }

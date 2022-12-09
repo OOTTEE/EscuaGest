@@ -1,10 +1,16 @@
 import {useHttpClient} from "../../infrastructure/http/http";
+import {useEffect} from "react";
 
 export const Dashboard = () => {
-
     const httpClient = useHttpClient();
-    httpClient.get("http://localhost:8080/swimmer")
-        .then(value => console.log(value))
+    //
+    // useEffect(() => {
+    //     httpClient.get("http://localhost:8080/swimmer")
+    //         .then(value => console.log(value))
+    // }, [])
+
+    useEffect(() => {
+    },[])
 
 
     return (
